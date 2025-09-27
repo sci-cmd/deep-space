@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Deep Space — Map View</title>
+  <link rel="stylesheet" href="map.css">
+</head>
+<body>
+  <header class="map-header">
+    <div class="map-header-left">
+      <h1>🌌 Deep Space</h1>
+      <p class="lead">Explore your universe and track missions visually.</p>
+    </div>
+    <div class="map-header-right">
+      <a href="list.html" class="btn secondary">List View</a>
+    </div>
+  </header>
+
+  <main class="map-wrap">
+  <canvas id="solarCanvas" width="1200" height="800" role="img" aria-label="Deep Space map"></canvas>
+
+    <div id="sidebar" class="sidebar hidden" aria-hidden="true">
+      <button id="closeSidebar" class="close-btn" aria-label="Close sidebar">×</button>
+      <div id="sidebarContent"></div>
+    </div>
+  </main>
+
+  <script src="map.js" defer></script>
+</body>
+</html>

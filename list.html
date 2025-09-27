@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Space — List View</title>
+  <link rel="stylesheet" href="list.css">
+</head>
+<body>
+  <header>
+    <h1>🚀 Deep Space — List View</h1>
+    <p class="lead">Manage your universe: add solar systems, planets, and missions here.</p>
+  </header>
+
+  <main class="container">
+    <!-- Add Solar System -->
+    <section class="panel">
+      <h2>New Solar System</h2>
+      <div class="row">
+        <input id="newSystem" placeholder="Solar System name" />
+        <button class="btn" id="addSystemBtn">+ Add System</button>
+      </div>
+    </section>
+
+    <!-- Your Universe -->
+    <section class="panel">
+      <h2>Your Universe</h2>
+      <div id="systemsList" class="list"></div>
+      <div class="actions" style="margin-top:10px; display:flex; gap:10px;">
+        <button class="clear-btn" id="clearUniverseBtn">Clear Universe</button>
+        <button class="back-btn" onclick="location.href='index.html'">Back to Map</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="list.js"></script>
+</body>
+</html>

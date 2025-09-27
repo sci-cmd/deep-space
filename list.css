@@ -1,0 +1,145 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0a0d1a;
+  color: #f1f1f1;
+}
+
+header {
+  background: #11131f;
+  padding: 1rem 2rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+header .lead {
+  font-size: 0.9rem;
+  color: #9ba3b4;
+}
+
+.container {
+  padding: 1rem 2rem;
+}
+
+.panel {
+  background: #1b2033;
+  padding: 1rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+input {
+  flex: 1;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #333a56;
+  background: #0b0f24;
+  color: #f1f1f1;
+}
+
+button {
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #3a5af1;
+  color: #fff;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.list {
+  margin-top: 1rem;
+}
+
+.solar-system {
+  margin-bottom: 0.8rem;
+  background: #22263f;
+  border-radius: 8px;
+}
+
+.system-header,
+.planet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  background: #1a1a2e;
+  margin: 2px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mission{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.planets-container,
+.missions-container {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+}
+
+.hidden {
+  max-height: 0;
+  opacity: 0;
+}
+
+
+.mission {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.mission-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+/* Buttons */
+.delete-btn {
+  background: red;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.clear-btn {
+  background: red;
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  margin-right: 10px;
+}
+
+.back-btn {
+  background: #3a5af1;
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+}
