@@ -170,4 +170,99 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
+// -------------------- CLICK HANDLING --------------------
+canvas.addEventListener("click", (event) => {
+  const rect = canvas.getBoundingClientRect();
+  const clickX = event.clientX - rect.left;
+  const clickY = event.clientY - rect.top;
+  
+  console.log("Clicked at:", clickX, clickY);
+  
+  // Check if we clicked on any object
+  for (let obj of drawObjects) {
+    const distance = Math.sqrt(
+      (clickX - obj.x) ** 2 + (clickY - obj.y) ** 2
+    );
+    
+    if (distance <= obj.radius) {
+      console.log("Clicked on:", obj.type, obj);
+      
+      if (obj.type === "system") {
+        showSystemSidebar(obj.systemIndex);
+      } else if (obj.type === "planet") {
+        showPlanetSidebar(obj.systemIndex, obj.planetIndex);
+      }
+      break; // Stop after first match
+    }
+  }
+});
+
+// -------------------- SIDEBAR FUNCTIONS --------------------
+function showSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.remove("hidden");
+  sidebar.setAttribute("aria-hidden", "false");
+}
+
+function hideSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.add("hidden");
+  sidebar.setAttribute("aria-hidden", "true");
+}
+
+function showSystemSidebar(systemIndex) {
+  const system = universe[systemIndex];
+  const totalMissions = system.planets.reduce((sum, planet) => sum + planet.missions.length, 0);
+  const completedMissions = system.planets.reduce((sum, planet) => 
+    sum + planet.missions.filter(m => m.completed).length, 0
+  );
+  const completionPercentage = totalMissions > 0 ? Math.round((completedMissions / totalMissions) * 100) : 0;
+  
+  const content = `
+    <h2>🌌 ${system.name}</h2>
+    <p><strong>Planets:</strong> ${system.planets.length}</p>
+    <p><strong>Total Missions:</strong> ${totalMissions}</p>
+    <p><strong>Completed:</strong> ${completedMissions}/${totalMissions} (${completionPercentage}%)</p>
+    <div style="background: #333; border-radius: 4px; height: 10px; margin: 10px 0;">
+      <div style="background: var(--accent); height: 100%; width: ${completionPercentage}%; border-radius: 4px;"></div>
+    </div>
+  `;
+  
+  document.getElementById("sidebarContent").innerHTML = content;
+  showSidebar();
+}
+
+function showPlanetSidebar(systemIndex, planetIndex) {
+  const system = universe[systemIndex];
+  const planet = system.planets[planetIndex];
+  const totalMissions = planet.missions.length;
+  const completedMissions = planet.missions.filter(m => m.completed).length;
+  const completionPercentage = totalMissions > 0 ? Math.round((completedMissions / totalMissions) * 100) : 0;
+  
+  const content = `
+    <h2>🪐 ${planet.name}</h2>
+    <p><strong>System:</strong> ${system.name}</p>
+    <p><strong>Total Missions:</strong> ${totalMissions}</p>
+    <p><strong>Completed:</strong> ${completedMissions}/${totalMissions} (${completionPercentage}%)</p>
+    <div style="background: #333; border-radius: 4px; height: 10px; margin: 10px 0;">
+      <div style="background: var(--accent); height: 100%; width: ${completionPercentage}%; border-radius: 4px;"></div>
+    </div>
+    
+    <h3>Missions:</h3>
+    <ul style="margin: 0; padding-left: 20px;">
+      ${planet.missions.map(mission => 
+        `<li style="color: ${mission.completed ? '#4ade80' : 'var(--muted)'};">
+          ${mission.completed ? '✅' : '⏳'} ${mission.name}
+         </li>`
+      ).join('')}
+    </ul>
+  `;
+  
+  document.getElementById("sidebarContent").innerHTML = content;
+  showSidebar();
+}
+
+// Close sidebar button
+document.getElementById("closeSidebar").addEventListener("click", hideSidebar);
+
 loop();
