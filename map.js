@@ -94,29 +94,54 @@ function updateSpaceship() {
   spaceship.y += (spaceship.targetY - spaceship.y) * 0.05;
 }
 
+function setSpaceshipTarget(x, y){
+  spaceship.targetX = x;
+  spaceship.targetY = y;
+}
+
 // -------------------- FIND NEXT TARGET --------------------
 function findNextTarget() {
+  console.log("=== Finding next target ===");
+  
   for (let s = 0; s < universe.length; s++) {
     const system = universe[s];
-
+    console.log(`Checking system ${s}: ${system.name}`);
+    
+    // Check if ANY mission in this system has been completed
+    let hasAnyCompletedMission = false;
+    for (let p = 0; p < system.planets.length; p++) {
+      const completedMissions = system.planets[p].missions.filter(m => m.completed);
+      if (completedMissions.length > 0) {
+        hasAnyCompletedMission = true;
+        break;
+      }
+    }
+    
+    console.log(`  System has completed missions: ${hasAnyCompletedMission}`);
+    
+    // If no missions completed yet, stay at the star
+    if (!hasAnyCompletedMission) {
+      const starY = 200 + 200 * s;
+      console.log(`  -> Staying at star of ${system.name}`);
+      return { systemIndex: s, planetIndex: null, x: 200, y: starY };
+    }
+    
+    // If some missions are completed, find next incomplete planet
     for (let p = 0; p < system.planets.length; p++) {
       const planet = system.planets[p];
-      const incompleteMissions = planet.missions.filter(m => !m.done);
-
+      const incompleteMissions = planet.missions.filter(m => !m.completed);
+      
       if (incompleteMissions.length > 0) {
-        // Move to the first incomplete planet
+        console.log(`  -> Moving to planet ${planet.name} with incomplete missions`);
         return { systemIndex: s, planetIndex: p, x: planet.x, y: planet.y };
       }
     }
-
-    // If all planets complete, move to next system star
-    if (s < universe.length - 1) {
-      const nextStarY = 200 + 200 * (s + 1);
-      return { systemIndex: s + 1, planetIndex: null, x: 200, y: nextStarY };
-    }
+    
+    console.log(`  System ${system.name} is complete, checking next system`);
   }
-
-  return null; // Everything completed
+  
+  console.log("All systems complete!");
+  return null;
 }
 
 // -------------------- AUTO-MOVE LOGIC --------------------
