@@ -18,12 +18,19 @@
   </header>
 
   <main class="map-wrap">
-  <canvas id="solarCanvas" width="1200" height="800" role="img" aria-label="Deep Space map"></canvas>
-    <div id="sidebar" class="sidebar hidden" aria-hidden="true">
-      <button id="closeSidebar" class="close-btn" aria-label="Close sidebar">×</button>
-      <div id="sidebarContent"></div>
+    <div id="mapContent" class="map-content">
+      <canvas id="solarCanvas" width="1200" height="800" role="img" aria-label="Deep Space map"></canvas>
+      <div id="sidebar" class="sidebar hidden" aria-hidden="true">
+        <button id="closeSidebar" class="close-btn" aria-label="Close sidebar">×</button>
+        <div id="sidebarContent"></div>
+      </div>
     </div>
   </main>
+
+  <div class="system-nav">
+    <button id="prevSystem" class="nav-btn" aria-label="Previous system">▲</button>
+    <button id="nextSystem" class="nav-btn" aria-label="Next system">▼</button>
+  </div>
 
   <script src="map.js" defer></script>
 </body>
